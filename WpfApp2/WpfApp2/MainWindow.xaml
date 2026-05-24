@@ -1,0 +1,65 @@
+﻿<Window x:Class="WpfApp2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Space Shooter" Height="600" Width="800" Background="Black"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <!-- игровая область заполняет всё окно -->
+        <Canvas Name="GameCanvas" Background="Black" ClipToBounds="True"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+
+        <!-- HUD -->
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8">
+            <TextBlock Name="ScoreText" Foreground="White" FontSize="16" Text="Score: 0" Margin="0,4,10,0"/>
+            <TextBlock Name="InfoText" Foreground="LightGray" FontSize="14" Text="A/D — поворот, Пробел — выстрел" Margin="0,6,0,0"/>
+            <TextBlock Name="LevelText" Foreground="Yellow" FontSize="14" Text="" Margin="16,6,0,0"/>
+            <TextBlock Name="TimerText" Foreground="LightGreen" FontSize="14" Text="" Margin="8,6,0,0"/>
+        </StackPanel>
+
+        <!-- центральный текст состояния (Game Over / WIN) -->
+        <TextBlock Name="GameOverText" Text="GAME OVER" Foreground="Red" FontSize="48" FontWeight="Bold"
+                   Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+        <!-- Кнопка возврата в меню, показывается только после победы -->
+        <Button x:Name="ReturnToMenuButton"
+                Content="Вернуться в главное меню"
+                Visibility="Collapsed"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Margin="0,120,0,0"
+                Width="220"
+                Height="40"
+                Click="ReturnToMenuButton_Click" />
+
+        <!-- Shield определяется в XAML, позиционируется в коде -->
+        <Ellipse Name="ShieldEllipse" Width="0" Height="0" Stroke="LightBlue" StrokeThickness="4" Visibility="Collapsed" />
+
+        <!-- Main menu overlay: центруем содержимое -->
+        <Grid x:Name="MainMenuOverlay" Visibility="Collapsed" Background="#88000000" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Border HorizontalAlignment="Center" VerticalAlignment="Center" Background="#00111111" Padding="20" CornerRadius="6">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="220" >
+                    <Button Content="Arcade" Click="BtnArcade_Click" Margin="6" Height="36"/>
+                    <Button Content="Levels" x:Name="BtnLevelsMenu" Click="BtnLevelsMenu_Click" Margin="6" Height="36"/>
+                    <Button Content="Close" Click="BtnCloseMenu_Click" Margin="6" Height="36"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Levels overlay: центруем список кнопок -->
+        <Grid x:Name="LevelsOverlay" Visibility="Collapsed" Background="#88000000" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Border HorizontalAlignment="Center" VerticalAlignment="Center" Background="#00111111" Padding="20" CornerRadius="6">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="220">
+                    <TextBlock Text="Выберите уровень" Foreground="White" FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                    <UniformGrid Columns="1" Rows="5" Width="200" HorizontalAlignment="Center">
+                        <Button Content="Level 1" Click="BtnLevel1_Click" Margin="4" Height="36"/>
+                        <Button Content="Level 2" Click="BtnLevel2_Click" Margin="4" Height="36"/>
+                        <Button Content="Level 3" Click="BtnLevel3_Click" Margin="4" Height="36"/>
+                        <Button Content="Level 4" Click="BtnLevel4_Click" Margin="4" Height="36"/>
+                        <Button Content="Level 5" Click="BtnLevel5_Click" Margin="4" Height="36"/>
+                    </UniformGrid>
+                    <Button Content="Back" Click="BtnLevelsBack_Click" Margin="12" Width="160" Height="32" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
